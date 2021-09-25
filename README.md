@@ -54,4 +54,5 @@
 
 
 - D:\Development\apache-cassandra-3.11.10\conf\logback.xml
-- 
+
+https://www.youtube.com/watch?v=fKV_j7i8KCI
