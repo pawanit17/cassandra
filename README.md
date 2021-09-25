@@ -22,6 +22,18 @@
 - No single point of failure.
 
 # When to use Cassandra
+- Applications where data is heavy - petabytes
+- When data is columnar - different fields for different products
+
+# When not to use Cassandra
+- Cassandra provides tunable consistency.
+  - Configuration parameter.
+  - :question: Try this!.
+- When data is to be instantly read
+- Data managed on a single system
+- Ideal for catalog management system and not for order management system.
+
+# Usecases
 
 
 # How is it different from MongoDB
@@ -33,9 +45,13 @@
 - Cassandra employs distributed processing. It means that there are several nodes over which the data is split using some criteria.
 - However, unlike HBASE, there is no master node which tells information on which node has what data. Any node in the Cassandra cluster can work with a request.
 - In this sense, because there is no master node, there is no single point of failure. In other words, a decentralized system.
+- Data is then updated from this node to the other nodes.
 - This also means it is horizontally scalable.
 - Data stored in Cassandra is stored in more than one nodes, making it fault-tolerant.
   - :question: Is this by default?.
 
 - Cassandra is column-oriented.
 
+
+- D:\Development\apache-cassandra-3.11.10\conf\logback.xml
+- 
