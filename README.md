@@ -10,6 +10,7 @@
 - https://www.datastax.com/cassandra
 
 # What does Cassandra offer
+:question: How each of the below are achieved?.
 - Replication
 - Scalability
 - Zero-downtime
