@@ -3,7 +3,7 @@
 # Goal
 - :target: Get a good idea by 15th of October.
 
-# Resources Used
+# Resources
 | Course      | Description |
 | ----------- | ----------- |
 | Datastax Cassandra Basic Playlist | https://www.youtube.com/watch?v=YjYWsN1vek8&list=PL2g2h-wyI4SqCdxdiyi8enEyWvACcUa9R |
@@ -13,6 +13,7 @@
 | Running Apache Cassandra on Docker | https://www.youtube.com/watch?v=fKV_j7i8KCI |
 | Cassandra Data Modeling - Consideration @ Netflix | https://www.youtube.com/watch?v=-zyZ35YyT_8 |
 | SprintBoot Data + Cassandra | https://www.youtube.com/watch?v=nBoHQOcwPS4 |
+| Cassandra: The definitive guide | file:///D:/Books/Cassandra%20The%20Definitive%20Guide(2nd).pdf |
 
 
 # Introduction
@@ -30,6 +31,10 @@
 - What are commit logs and memtables.
 - How do you run Apache Cassandra on Docker?.
 - Why is Cassandra fast?.
+- Consistency level & Replication Factors dependency
+  - All
+  - 1
+  - Quorum
 - If Cassandra uses hashing for identifying where to store data / retrieve data from, then how does it know where to push the data to during replication?.
 - What happens if a request reaches a node that does not have the information requested for?. 
 - How is it different from MongoDB
@@ -66,6 +71,8 @@
 - Ideal for catalog management system and not for order management system.
 
 # Usecases
+- ![image](https://user-images.githubusercontent.com/42272776/134814315-00981f59-9f3a-43b3-ad1a-13388824f71c.png)
+
 
 # Architecture
 - Cassandra employs distributed processing. It means that there are several nodes over which the data is split using some criteria.
