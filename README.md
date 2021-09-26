@@ -1,9 +1,28 @@
 # cassandra
 
+# Resources Used
+| Course      | Description |
+| ----------- | ----------- |
+| Datastax Cassandra Basic Playlist | https://www.youtube.com/watch?v=YjYWsN1vek8&list=PL2g2h-wyI4SqCdxdiyi8enEyWvACcUa9R |
+| Datastax Cassandra Course      | https://www.datastax.com/learn/cassandra-fundamentals/       |
+| Cloud Native Workshop - Cassandra Introduction   | https://www.youtube.com/watch?v=VaLwHqAHNtE&list=PLQwtlCoREyoHJDTVHbixHeuJEjXs5E2vO&index=1        |
+| Nasser - Discord Movement to Cassandra   | https://www.youtube.com/watch?v=86olupkuLlU |
+| Running Apache Cassandra on Docker | https://www.youtube.com/watch?v=fKV_j7i8KCI |
+
 # Introduction
 - Developed at Facebook and is a Columnar Database.
 - Has its own version of SQL called CQL and is a NOSL database.
 - Apache Cassandra is an open source, distributed NoSQL database that began internally at Facebook and was released as an open-source project in July 2008. Cassandra delivers continuous availability (zero downtime), high performance, and linear scalability that modern applications require, while also offering operational simplicity and effortless replication across data centers and geographies. Cassandra can handle petabytes of information and thousands of concurrent operations per second, enabling organizations to manage large amounts of data across hybrid cloud and multi cloud environments.
+
+# Questions
+- Read more on columnar storage
+- What are tokens
+- Are all the records with same partition key stores adjacent in disk space?.
+- How to CRUD using API
+- What is the concept of Tombstones
+- Why are WRITES faster than READS in Cassandra?. How is this dependent on consistency setting?.
+- What are commit logs and memtables.
+- How do you run Apache Cassandra on Docker?.
 
 # Trivia
 - Apache Cassandra was developed by Avinash Lakshman and Prashant Malik when both were working as engineers at Facebook. The database was designed to power Facebook’s inbox search feature, making it easy for users to quickly find the conversations and other content they were looking for. The architecture combined the distribution model proposed in Amazon’s Dynamo paper to allow horizontal scaling across multiple nodes with the log-structured storage engine described in Google’s BigTable paper. The result was a highly scalable database that could address the most data-rich and performance-intensive use cases.
@@ -11,16 +30,15 @@
 
 # What does Cassandra offer
 :question: How each of the below are achieved?.
-- Replication
+- High Availability
+  - Peer to peer architecture with no single point of failure ( masterless architecture )
 - Scalability ( Linear scale )
 - Zero-downtime
 - High performance
 - Fault tolerant
-- Masterless Architecture
-- Tunable consistency
+  - Via Replication and Tunable consistency
 - Column oriented database
-- No single point of failure
-- Very fast WRITES ( micro to milli seconds ) and READS ( milli seconds )
+- Very fast WRITES ( micro to milli seconds ) and READS ( milli seconds ) / Single digit millisecond response times at any scale.
 - Vendor Agnostic
 
 # When to use Cassandra
@@ -57,8 +75,8 @@
 
 - D:\Development\apache-cassandra-3.11.10\conf\logback.xml
 
-https://www.youtube.com/watch?v=fKV_j7i8KCI
-https://www.youtube.com/watch?v=YjYWsN1vek8&list=PL2g2h-wyI4SqCdxdiyi8enEyWvACcUa9R
+
+
 
 - 1000s of operations per core.
 - Each Node has a full installation of Cassandra.
@@ -137,6 +155,42 @@ in writing, the WRITE request succeeds otherwise, it fails.
 - The advantage is if we retrieve it, not only we get the relevant partitioned data, but also the ordering is intact.
 - **One query per one table**.
 
+# CRUD
+- Create
+  - CREATE TABLE IF NOT EXISTS comments_by_user (
+    userid uuid,
+    commentid timeuuid,
+    videoid uuid,
+    comment text,
+    PRIMARY KEY ((userid), commentid)
+    ) WITH CLUSTERING ORDER BY (commentid DESC);
+    
+  - INSERT INTO comments_by_user (
+    userid, //uuid: unique id for a user
+    commentid, //timeuuid: unique uuid + timestamp
+    videoid, //uuid: id for a given video
+    comment //text: the comment text
+    )
+    VALUES (
+      11111111-1111-1111-1111-111111111111, 
+      NOW(), 
+      12345678-1234-1111-1111-111111111111, 
+      'I so grew up in the 80''s'
+    );
+ 
+- Read
+  - SELECT * FROM comments_by_user WHERE userid = 11111111-1111-1111-1111-111111111111;
+  - **Note that a straight select * without specifying partion key on a realistic production cluster would cause a full scan and is highly discouraged.**
+
+- Update
+  - UPDATE comments_by_video 
+    SET comment = 'OMG that guy Patrick is on fleek' 
+    WHERE videoid = 12345678-1234-1111-1111-111111111111 AND commentid = 494a3f00-e966-11ea-84bf-83e48ffdc8ac;
+
+- Delete
+  - DELETE FROM comments_by_video 
+    WHERE videoid = 12345678-1234-1111-1111-111111111111 AND commentid = 494a3f00-e966-11ea-84bf-83e48ffdc8ac;
+  - In Cassandra, Delete actually uses Insert as it creates a Delete Marker called Tombstone.
 
 
 
