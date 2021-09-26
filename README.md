@@ -1,5 +1,8 @@
 # cassandra
 
+# Goal
+- :target: Get a good idea by 15th of October.
+
 # Resources Used
 | Course      | Description |
 | ----------- | ----------- |
@@ -9,6 +12,8 @@
 | Nasser - Discord Movement to Cassandra   | https://www.youtube.com/watch?v=86olupkuLlU |
 | Running Apache Cassandra on Docker | https://www.youtube.com/watch?v=fKV_j7i8KCI |
 | Cassandra Data Modeling - Consideration @ Netflix | https://www.youtube.com/watch?v=-zyZ35YyT_8 |
+| SprintBoot Data + Cassandra | https://www.youtube.com/watch?v=nBoHQOcwPS4 |
+
 
 # Introduction
 - Developed at Facebook and is a Columnar Database.
@@ -24,6 +29,9 @@
 - Why are WRITES faster than READS in Cassandra?. How is this dependent on consistency setting?.
 - What are commit logs and memtables.
 - How do you run Apache Cassandra on Docker?.
+- Why is Cassandra fast?.
+- If Cassandra uses hashing for identifying where to store data / retrieve data from, then how does it know where to push the data to during replication?.
+- What happens if a request reaches a node that does not have the information requested for?. 
 
 # Trivia
 - Apache Cassandra was developed by Avinash Lakshman and Prashant Malik when both were working as engineers at Facebook. The database was designed to power Facebook’s inbox search feature, making it easy for users to quickly find the conversations and other content they were looking for. The architecture combined the distribution model proposed in Amazon’s Dynamo paper to allow horizontal scaling across multiple nodes with the log-structured storage engine described in Google’s BigTable paper. The result was a highly scalable database that could address the most data-rich and performance-intensive use cases.
@@ -82,7 +90,7 @@
 - 1000s of operations per core.
 - Each Node has a full installation of Cassandra.
 - Each code has a capacity of 2-4TB.
-- All the Nodes are connected and together form a Datacenter.
+- All the Nodes are connected and together form a Datacenter/Ring.
 - Each Node communicates with other nodes using a protocol called Gossip - to get the status of a node.
 - These Datacenters can be put whereever they are needed in the world and can be served.
 ![image](https://user-images.githubusercontent.com/42272776/134802071-c475b74f-924a-46c1-a4ff-ebcd3788fbfc.png)
@@ -100,7 +108,7 @@
 - Availability, Performance and Consistency
 ![image](https://user-images.githubusercontent.com/42272776/134802494-111b6e67-3e0a-4239-a4a8-ce823725ef5e.png)
 - With a Replication Factor of 3, WRITEs are stored in 3 different Nodes. Consistency tuning plays a major role here. With a Quorum consistency, if 2 out of 3 nodes succeed
-in writing, the WRITE request succeeds otherwise, it fails.
+in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate Consistency**.
 ![image](https://user-images.githubusercontent.com/42272776/134802669-e5dcf8cb-1879-4523-9424-ae9ae5ac2efe.png)
 - The same is the case with READs.
 ![image](https://user-images.githubusercontent.com/42272776/134802680-0e86631c-448d-4cc0-9c21-37b0676a2f94.png)
