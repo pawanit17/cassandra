@@ -92,7 +92,7 @@ in writing, the WRITE request succeeds otherwise, it fails.
 # How is data stored
 | Element      | Description |
 | ----------- | ----------- |
-| Keyspace      | Similar to schema in RDBMS       |
+| Keyspace      | Similar to schema in RDBMS, keeps group of tables together       |
 | Partitions   | Partitioning        |
 | Partition Key   | This field will be how paritioning is done |
 | Clustering Columns   | Collections of columns that are unique. A natural sorting is implictly done by Cassandra during WRITE |
@@ -112,6 +112,30 @@ in writing, the WRITE request succeeds otherwise, it fails.
   - ![image](https://user-images.githubusercontent.com/42272776/134803764-a5f92208-3786-4163-b0b6-3a0699e9e1d9.png)
 - Avoid hot partitions
   - ![image](https://user-images.githubusercontent.com/42272776/134803787-9508734d-c0d8-417d-a64c-bf278ed3a2a6.png)
+
+# CQL
+- Subset of SQL
+- desc KEYSPACES;
+- use killrvideo;
+- // Users keyed by city
+  CREATE TABLE IF NOT EXISTS users_by_city ( 
+    city text, 
+    last_name text, 
+    first_name text, 
+    address text, 
+    email text, 
+    PRIMARY KEY ((city), last_name, first_name, email));
+
+# Data Modelling
+- ![image](https://user-images.githubusercontent.com/42272776/134805568-944b61f0-7648-46e2-b85f-ac5451bc6184.png)
+- ![image](https://user-images.githubusercontent.com/42272776/134805602-6f364123-9992-47f2-a014-e2a68b763e84.png)
+- Convention in Cassandra is to use _x_by_y_.
+- ![image](https://user-images.githubusercontent.com/42272776/134805640-e1d4891b-18b8-45d2-8fb2-90f60b740169.png)
+- Optimization by combining Time + ID ![image](https://user-images.githubusercontent.com/42272776/134805687-7707be20-2b00-4736-ace8-93cc268162c7.png)
+- **You can do a single read to get the data that answers the questions. Cassandra is denormalized to achieve faster reads.**
+- ![image](https://user-images.githubusercontent.com/42272776/134805719-37f06c58-820b-47d9-bf90-bed431362392.png)
+- The advantage is if we retrieve it, not only we get the relevant partitioned data, but also the ordering is intact.
+- **One query per one table**.
 
 
 
