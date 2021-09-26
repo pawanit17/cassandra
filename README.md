@@ -8,6 +8,7 @@
 | Cloud Native Workshop - Cassandra Introduction   | https://www.youtube.com/watch?v=VaLwHqAHNtE&list=PLQwtlCoREyoHJDTVHbixHeuJEjXs5E2vO&index=1        |
 | Nasser - Discord Movement to Cassandra   | https://www.youtube.com/watch?v=86olupkuLlU |
 | Running Apache Cassandra on Docker | https://www.youtube.com/watch?v=fKV_j7i8KCI |
+| Cassandra Data Modeling - Consideration @ Netflix | https://www.youtube.com/watch?v=-zyZ35YyT_8 |
 
 # Introduction
 - Developed at Facebook and is a Columnar Database.
