@@ -32,7 +32,10 @@
 - Why is Cassandra fast?.
 - If Cassandra uses hashing for identifying where to store data / retrieve data from, then how does it know where to push the data to during replication?.
 - What happens if a request reaches a node that does not have the information requested for?. 
-
+- How is it different from MongoDB
+- How are different databases placed in terms of speed, availability and scalability & replication?.
+  - https://www.datastax.com/nosql
+ 
 # Trivia
 - Apache Cassandra was developed by Avinash Lakshman and Prashant Malik when both were working as engineers at Facebook. The database was designed to power Facebook’s inbox search feature, making it easy for users to quickly find the conversations and other content they were looking for. The architecture combined the distribution model proposed in Amazon’s Dynamo paper to allow horizontal scaling across multiple nodes with the log-structured storage engine described in Google’s BigTable paper. The result was a highly scalable database that could address the most data-rich and performance-intensive use cases.
 - https://www.datastax.com/cassandra
@@ -63,12 +66,6 @@
 - Ideal for catalog management system and not for order management system.
 
 # Usecases
-
-
-# How is it different from MongoDB
-
-# How are different databases placed in terms of speed, availability and scalability & replication?.
-- https://www.datastax.com/nosql
 
 # Architecture
 - Cassandra employs distributed processing. It means that there are several nodes over which the data is split using some criteria.
