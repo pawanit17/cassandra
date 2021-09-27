@@ -13,7 +13,7 @@
 | Running Apache Cassandra on Docker | https://www.youtube.com/watch?v=fKV_j7i8KCI |
 | Cassandra Data Modeling - Consideration @ Netflix | https://www.youtube.com/watch?v=-zyZ35YyT_8 |
 | SprintBoot Data + Cassandra | https://www.youtube.com/watch?v=nBoHQOcwPS4 |
-| Cassandra: The definitive guide | file:///D:/Books/Cassandra%20The%20Definitive%20Guide(2nd).pdf |
+| Cassandra: The definitive guide | https://github.com/sunilsoni/Cassandra-Data-Modeling/blob/master/books/Cassandra%20The%20Definitive%20Guide%20Eben%20Hewit.pdf |
 
 
 # Introduction
@@ -124,6 +124,7 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 | Element      | Description |
 | ----------- | ----------- |
 | Keyspace      | Similar to schema in RDBMS, keeps group of tables together       |
+| Column Families | Are tables in RDBMS |
 | Partitions   | Partitioning        |
 | Partition Key   | This field will be how paritioning is done |
 | Clustering Columns   | Collections of columns that are unique. A natural sorting is implictly done by Cassandra during WRITE |
