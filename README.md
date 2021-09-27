@@ -51,6 +51,7 @@
 - High Availability
   - Peer to peer architecture with no single point of failure ( masterless architecture )
 - Scalability ( Linear scale )
+![image](https://user-images.githubusercontent.com/42272776/134966576-1fb82e77-79fb-4f02-9f43-7e0565bb0406.png)
 - Zero-downtime
 - High performance
 - Fault tolerant
