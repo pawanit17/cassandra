@@ -64,7 +64,7 @@
 
 # When not to use Cassandra
 - Cassandra provides tunable consistency.
-  - Configuration parameter.
+  - Configuration parameter that clients must specify on every operation and that allows you to decide how many replicas in the cluster must acknowledge a write operation or respond to a read operation in order to be considered successful.
   - :question: Try this!.
 - When data is to be instantly read
 - Data managed on a single system
