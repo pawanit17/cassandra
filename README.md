@@ -32,6 +32,7 @@
 - What are commit logs and memtables.
 - How do you run Apache Cassandra on Docker?.
 - Why is Cassandra fast?.
+- How are nodes that are not in sync aligned?. What if majority of them are wrong?.
 - Consistency level & Replication Factors dependency
   - All
   - 1
@@ -144,6 +145,9 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - ![image](https://user-images.githubusercontent.com/42272776/135134939-3281d2f8-ed96-4e93-b658-467f4e68fb2a.png)
 - **Hinted Handoff** is a feature in Cassandra where the attempt to WRITE some data that is hashed to a node is offline. In this case, instead of not failing the request, the information is pinned by the Coordinator node so that if it detects that the node has come up during Gossip, it would process that WRITE action. The advantage here is that because a node is temporarily down, the requests are not flooded to the other existing servers thereby creating uneven load.
 - org.apache.casandra.db.HintedHandOffManager is the class that manages hinted handoffs internally.
+- Anti-entropy
+- Merkel Trees
+
 
 - **Tombstones** is a concept in Cassandra whereby the Delete operation does not delete the data - column or row etc.Instead, a marker called **Tombstone** in its place. This tombstone will have a lifetime after which the data gets deleted. This settings is called **Gabage Collection Grace Seconds**. By default it is 864,000 - 10 days. The purpose of this delay is to give a node that is unavailable, some time to recover.
 - **Bloom Filters** Very fast way to test if an element is in a given set. Catch here is that they are probabilistic data structures and may give false positives, but never a false negative. Org.apache.cassandra.utils.BloomFilter class implements this data structure. When a query is performed, Bloom filter is checked first to see if the data exists. If it determines that the element does not exist, then disk is not accessed. Otherwise, disk check is done, thereby acting as a cache and reducing READ times. Bloom filters are on SSTables.
