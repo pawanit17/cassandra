@@ -122,6 +122,36 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - Geographic distribution works well with Cassandra. So is cloud scheme.
 ![image](https://user-images.githubusercontent.com/42272776/134802786-d15dfb47-d891-47e9-9549-7c8b7ff7ef85.png)
 
+# Architecture Deep Dive
+- Mainly used for geographically distributed applications.
+- **Racks** are basically Nodes that reside on the same rack and **Data Center** is typically a collection of racks with a single building.
+- ![image](https://user-images.githubusercontent.com/42272776/135122617-08768c70-c2a2-4601-9fe9-f87636335ac8.png).
+- OOTB Cassandra comes with a default configuration of a single data center ("DC1") containing a single rack ("RAC1").
+- To achieve decentralization and partition tolerance, Cassandra uses a **gossip** protocol. This protocol is mainly by each node to keep track of state information about the other nodes in the cluster and runs every second on the timer.
+- ![image](https://user-images.githubusercontent.com/42272776/135123849-9939923f-63b9-4078-acf3-87ea50ebf86f.png)
+- What are Snitches?
+- The data being stored into Cassandra is **hashed** on its partition key ( by **Partitioners** ) and the resulting token determines which node the data gets saved to.
+- Once data gets persisted into Cassandra node as hashed out by the Partitioner, the **Replication** aspect comes into picture.
+- There are **replication strategies** that determine where the data is supposed to get replicated to. For example, in the **SimpleStrategy**, replicas are placed at consecutive nodes around the ring starting from the node identified by Partitioners.
+- **Consistency Levels** determine how many nodes needs to agree on a READ or a WRITE.
+- ![image](https://user-images.githubusercontent.com/42272776/135130023-ef6513a0-931a-4de4-a810-e6882b9c3e63.png)
+- Consistency Level is per client. Replication factor is per Keyspace.
+- ![image](https://user-images.githubusercontent.com/42272776/135132487-d9c267c5-9fd2-4e5a-902c-be815e9e440d.png)
+- All WRITES are first done to the **Commit Log**, which is a crash recoverable mechanism. From the **commit log** the data is pushed to **Memtables**. There will be many Memtables for a given Table, but each Memtable content will always belong to a single table. When the number of objects in Memtable reaches a threshold, the data is flushed to a file called an SSTable.
+- ![image](https://user-images.githubusercontent.com/42272776/135134760-14c991a2-a4eb-4d36-b9bc-846f8ff01193.png)
+- ![image](https://user-images.githubusercontent.com/42272776/135134192-ea098518-c8dd-4803-91c9-cd112a75236f.png)
+- ![image](https://user-images.githubusercontent.com/42272776/135134808-ad08498a-8588-496e-90a5-25fff517aa64.png)
+- ![image](https://user-images.githubusercontent.com/42272776/135134939-3281d2f8-ed96-4e93-b658-467f4e68fb2a.png)
+- **Hinted Handoff** is a feature in Cassandra where the attempt to WRITE some data that is hashed to a node is offline. In this case, instead of not failing the request, the information is pinned by the Coordinator node so that if it detects that the node has come up during Gossip, it would process that WRITE action. The advantage here is that because a node is temporarily down, the requests are not flooded to the other existing servers thereby creating uneven load.
+- org.apache.casandra.db.HintedHandOffManager is the class that manages hinted handoffs internally.
+
+- **Tombstones** is a concept in Cassandra whereby the Delete operation does not delete the data - column or row etc.Instead, a marker called **Tombstone** in its place. This tombstone will have a lifetime after which the data gets deleted. This settings is called **Gabage Collection Grace Seconds**. By default it is 864,000 - 10 days. The purpose of this delay is to give a node that is unavailable, some time to recover.
+- **Bloom Filters** Very fast way to test if an element is in a given set. Catch here is that they are probabilistic data structures and may give false positives, but never a false negative. Org.apache.cassandra.utils.BloomFilter class implements this data structure. When a query is performed, Bloom filter is checked first to see if the data exists. If it determines that the element does not exist, then disk is not accessed. Otherwise, disk check is done, thereby acting as a cache and reducing READ times. Bloom filters are on SSTables.
+
+
+
+
+
 # How is data stored
 | Element      | Description |
 | ----------- | ----------- |
