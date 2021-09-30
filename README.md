@@ -27,6 +27,7 @@
 - What are tokens
 - Are all the records with same partition key stores adjacent in disk space?.
 - How to CRUD using API
+  - CRUD on AtrixDB as well.
 - What is the concept of Tombstones
 - Why are WRITES faster than READS in Cassandra?. How is this dependent on consistency setting?.
 - What are commit logs and memtables.
