@@ -29,6 +29,8 @@
 - How to CRUD using API
   - CRUD on AtrixDB as well.
 - What is the concept of Tombstones
+- Replication factor vs Replication strategy
+  - https://wipro.udemy.com/course/learn-cassandra-from-scratch/learn/lecture/12966050#overview
 - Why are WRITES faster than READS in Cassandra?. How is this dependent on consistency setting?.
 - What are commit logs and memtables.
 - How do you run Apache Cassandra on Docker?.
@@ -207,6 +209,21 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - The advantage is if we retrieve it, not only we get the relevant partitioned data, but also the ordering is intact.
 - **One query per one table**.
 
+- Udemy
+- Query first design
+- No Joins
+- Uniform distribution across clusters ( 10MB to 200MB )
+
+# Anti Patterns
+- Using like a Queue
+- Too many updates and too many deletes
+- Changing the schema frequently
+- Collections for large objects
+- Partitions should not be wide
+- Columns and Blob/Text ( < 1 MB is recommended )
+- Selection without Primary Key ( invokes full table scan )
+- SimpleStrategy in Production is not recommended.
+
 # CRUD
 - Create
   - CREATE TABLE IF NOT EXISTS comments_by_user (
@@ -244,6 +261,9 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
     WHERE videoid = 12345678-1234-1111-1111-111111111111 AND commentid = 494a3f00-e966-11ea-84bf-83e48ffdc8ac;
   - In Cassandra, Delete actually uses Insert as it creates a Delete Marker called Tombstone.
 
+# AWC Cloud
+- AWC offers Cassandra as a Service called **Amazon Keyspaces**.
+  - Serverless, Automatica Scaling, Unlimited Storage, Milli Second Performance, Replication, Encryption at REST.
 
 
 
