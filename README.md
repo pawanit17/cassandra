@@ -139,10 +139,13 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - ![image](https://user-images.githubusercontent.com/42272776/135763427-d04d3fb5-d5fa-450c-be0f-19a10bd5035f.png)
 - To achieve decentralization and partition tolerance, Cassandra uses a **gossip** protocol. This protocol is mainly by each node to keep track of state information about the other nodes in the cluster and runs every second on the timer.
 - ![image](https://user-images.githubusercontent.com/42272776/135123849-9939923f-63b9-4078-acf3-87ea50ebf86f.png)
-- Unlike most application monitorings, Cassandra directly does not rely on a Heartbeat and decide if a server/node is down. Instead, the Gosipper will mark the server/node as down with a **suspicion level**.
+- Unlike most application monitorings, Cassandra directly does not rely on a Heartbeat and decide if a server/node is down. Instead, the Gosipper will mark the server/node as down with a **suspicion level**. ( Accural Failure Detection Model - non binary assessment just by consulting Heartbeat ).
 - What are Snitches?
   - Snitches are components that determine which node to read from when a READ request arrives at a co-ordinator Cassandra node.
   - Basically it monitors how fast nodes are replying to requests and optionally using the knowledge of Topology, determines which node to consult for getting the complete data.
+  - Note that during READs, the coordinator node READs complete data from actual node and hash of data from replica. This is to save bandwidth.
+    - If they do not match, coordinator gets the actual data from the replica and does the merge process by issuing a read-repair.
+    - Merge process considers the timestamp associated with columns to decide which is latest WRITE.
 - The data being stored into Cassandra is **hashed** on its partition key ( by **Partitioners** ) and the resulting token determines which node the data gets saved to.
 - Once data gets persisted into Cassandra node as hashed out by the Partitioner, the **Replication Factor** aspect comes into picture. RF is the number of nodes in your cluster that will receive copies of the same data. If the RF is 3, then three nodes in the ring will have copies of each row. 
 - There are **replication (placement) strategies** that determine where the data is supposed to get replicated to.
@@ -156,7 +159,16 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - ![image](https://user-images.githubusercontent.com/42272776/135764731-89581c45-a15a-47ec-8181-677037bd1ab2.png)
 - Each time you write data into Cassandra, a timestamp is generated for each column value that is updated. Internally, Cassandra uses these timestamps for resolving any conflicting changes that are made to the same value. Generally, the last timestamp wins.
 
-- All WRITES are first done to the **Commit Log**, which is a crash recoverable mechanism. From the **commit log** the data is pushed to **Memtables**. There will be many Memtables for a given Table, but each Memtable content will always belong to a single table. When the number of objects in Memtable reaches a threshold, the data is flushed to a file called an SSTable.
+- All WRITES are first done to the **Commit Log**, which is a crash recoverable mechanism.
+  - There is only one commit log, per machine.
+- From the **commit log** the data is pushed to **Memtables**.
+  - It is an In-memory data structure and has one MemTable per table.
+  - When the number of objects in Memtable reaches a threshold, the data is flushed to a file called an **SSTable**.
+- **SSTable** is the disk file.
+  - Immutable
+  - Has a Bloom Filter associated with it that tells whether parition key is present or not with probability.
+- Row Cache and Key cache help in performance.
+- Partition Index File and Partition Index Summary File.
 - ![image](https://user-images.githubusercontent.com/42272776/135134760-14c991a2-a4eb-4d36-b9bc-846f8ff01193.png)
 - ![image](https://user-images.githubusercontent.com/42272776/135134192-ea098518-c8dd-4803-91c9-cd112a75236f.png)
 - ![image](https://user-images.githubusercontent.com/42272776/135134808-ad08498a-8588-496e-90a5-25fff517aa64.png)
@@ -165,7 +177,10 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - org.apache.casandra.db.HintedHandOffManager is the class that manages hinted handoffs internally.
 - Anti-entropy
 - Merkel Trees
-
+- Compaction
+  - Flushing of data from mem table to SS table is continous and may create many SS Tables.
+  - This may decrease READ performance and so compaction is needed.
+  - Also, tombstones shall be removed.
 
 - **Tombstones** is a concept in Cassandra whereby the Delete operation does not delete the data - column or row etc.Instead, a marker called **Tombstone** in its place. This tombstone will have a lifetime after which the data gets deleted. This settings is called **Gabage Collection Grace Seconds**. By default it is 864,000 - 10 days. The purpose of this delay is to give a node that is unavailable, some time to recover.
 - **Bloom Filters** Very fast way to test if an element is in a given set. Catch here is that they are probabilistic data structures and may give false positives, but never a false negative. Org.apache.cassandra.utils.BloomFilter class implements this data structure. When a query is performed, Bloom filter is checked first to see if the data exists. If it determines that the element does not exist, then disk is not accessed. Otherwise, disk check is done, thereby acting as a cache and reducing READ times. Bloom filters are on SSTables.
