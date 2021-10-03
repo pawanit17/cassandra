@@ -24,6 +24,7 @@
 
 # Questions
 - Read more on columnar storage
+- Snitch
 - Read on Compaction
 - cassandra.yaml and logback.xml
 - What are tokens
