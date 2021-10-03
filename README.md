@@ -85,7 +85,7 @@
 
 
 # Architecture
-- Cassandra employs distributed processing. It means that there are several nodes over which the data is split using some criteria.
+- Cassandra is a distributed database. It means that there are several nodes over which the data is split using some criteria.
 - However, unlike HBASE, there is no master node which tells information on which node has what data. Any node in the Cassandra cluster can work with a request.
 - In this sense, because there is no master node, there is no single point of failure. In other words, a decentralized system.
 - Data is then updated from this node to the other nodes.
@@ -130,21 +130,31 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - Geographic distribution works well with Cassandra. So is cloud scheme.
 ![image](https://user-images.githubusercontent.com/42272776/134802786-d15dfb47-d891-47e9-9549-7c8b7ff7ef85.png)
 
+- TODO Reorganize this into a good story
 # Architecture Deep Dive
 - Mainly used for geographically distributed applications.
 - **Racks** are basically Nodes that reside on the same rack and **Data Center** is typically a collection of racks with a single building.
 - ![image](https://user-images.githubusercontent.com/42272776/135122617-08768c70-c2a2-4601-9fe9-f87636335ac8.png).
 - OOTB Cassandra comes with a default configuration of a single data center ("DC1") containing a single rack ("RAC1").
+- ![image](https://user-images.githubusercontent.com/42272776/135763427-d04d3fb5-d5fa-450c-be0f-19a10bd5035f.png)
 - To achieve decentralization and partition tolerance, Cassandra uses a **gossip** protocol. This protocol is mainly by each node to keep track of state information about the other nodes in the cluster and runs every second on the timer.
 - ![image](https://user-images.githubusercontent.com/42272776/135123849-9939923f-63b9-4078-acf3-87ea50ebf86f.png)
+- Unlike most application monitorings, Cassandra directly does not rely on a Heartbeat and decide if a server/node is down. Instead, the Gosipper will mark the server/node as down with a **suspicion level**.
 - What are Snitches?
+  - Snitches are components that determine which node to read from when a READ request arrives at a co-ordinator Cassandra node.
+  - Basically it monitors how fast nodes are replying to requests and optionally using the knowledge of Topology, determines which node to consult for getting the complete data.
 - The data being stored into Cassandra is **hashed** on its partition key ( by **Partitioners** ) and the resulting token determines which node the data gets saved to.
-- Once data gets persisted into Cassandra node as hashed out by the Partitioner, the **Replication** aspect comes into picture.
-- There are **replication strategies** that determine where the data is supposed to get replicated to. For example, in the **SimpleStrategy**, replicas are placed at consecutive nodes around the ring starting from the node identified by Partitioners.
+- Once data gets persisted into Cassandra node as hashed out by the Partitioner, the **Replication Factor** aspect comes into picture. RF is the number of nodes in your cluster that will receive copies of the same data. If the RF is 3, then three nodes in the ring will have copies of each row. 
+- There are **replication (placement) strategies** that determine where the data is supposed to get replicated to.
+  - For example, in the **SimpleStrategy**, replicas are placed at consecutive nodes around the ring starting from the node identified by Partitioners.
+  - In **NetworkTopologyStrategy** we can specify a different RF for each data center. Within a DC, it allocates replicas to different racks in order to maximize availability.
+  - Replication strategy is set independently for each keyspace and is a mandatory option in order to create a keyspace.
 - **Consistency Levels** determine how many nodes needs to agree on a READ or a WRITE.
 - ![image](https://user-images.githubusercontent.com/42272776/135130023-ef6513a0-931a-4de4-a810-e6882b9c3e63.png)
-- Consistency Level is per client. Replication factor is per Keyspace.
+- **Consistency Level** is specified during READs/WRITEs per client. **Replication factor** is per Keyspace.
+- **Consistency level is based on replication factor, not on the number of nodes in the system.**
 - ![image](https://user-images.githubusercontent.com/42272776/135132487-d9c267c5-9fd2-4e5a-902c-be815e9e440d.png)
+
 - All WRITES are first done to the **Commit Log**, which is a crash recoverable mechanism. From the **commit log** the data is pushed to **Memtables**. There will be many Memtables for a given Table, but each Memtable content will always belong to a single table. When the number of objects in Memtable reaches a threshold, the data is flushed to a file called an SSTable.
 - ![image](https://user-images.githubusercontent.com/42272776/135134760-14c991a2-a4eb-4d36-b9bc-846f8ff01193.png)
 - ![image](https://user-images.githubusercontent.com/42272776/135134192-ea098518-c8dd-4803-91c9-cd112a75236f.png)
