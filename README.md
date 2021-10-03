@@ -24,6 +24,7 @@
 
 # Questions
 - Read more on columnar storage
+- How to read this: https://cassandraring.com/
 - Snitch
 - Read on Compaction
 - cassandra.yaml and logback.xml
