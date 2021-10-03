@@ -153,7 +153,8 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - ![image](https://user-images.githubusercontent.com/42272776/135130023-ef6513a0-931a-4de4-a810-e6882b9c3e63.png)
 - **Consistency Level** is specified during READs/WRITEs per client. **Replication factor** is per Keyspace.
 - **Consistency level is based on replication factor, not on the number of nodes in the system.**
-- ![image](https://user-images.githubusercontent.com/42272776/135132487-d9c267c5-9fd2-4e5a-902c-be815e9e440d.png)
+- ![image](https://user-images.githubusercontent.com/42272776/135764731-89581c45-a15a-47ec-8181-677037bd1ab2.png)
+- Each time you write data into Cassandra, a timestamp is generated for each column value that is updated. Internally, Cassandra uses these timestamps for resolving any conflicting changes that are made to the same value. Generally, the last timestamp wins.
 
 - All WRITES are first done to the **Commit Log**, which is a crash recoverable mechanism. From the **commit log** the data is pushed to **Memtables**. There will be many Memtables for a given Table, but each Memtable content will always belong to a single table. When the number of objects in Memtable reaches a threshold, the data is flushed to a file called an SSTable.
 - ![image](https://user-images.githubusercontent.com/42272776/135134760-14c991a2-a4eb-4d36-b9bc-846f8ff01193.png)
