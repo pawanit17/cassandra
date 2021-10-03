@@ -24,6 +24,7 @@
 
 # Questions
 - Read more on columnar storage
+- Read: https://www.igvita.com/2012/02/06/sstable-and-log-structured-storage-leveldb/
 - How to read this: https://cassandraring.com/
 - Snitch
 - Read on Compaction
@@ -180,8 +181,9 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - Anti-entropy
 - Merkel Trees
 - Compaction
-  - Flushing of data from mem table to SS table is continous and may create many SS Tables.
-  - This may decrease READ performance and so compaction is needed.
+  - Since SSTables are immutable, every time a change occurs, a new SSTable is created.
+  - So the Flushing of data from memtable to SSTable is continous and may create many SSTables.
+  - This may decrease READ performance and so compaction is needed where new SSTable is created after merging these existing SSTables.
   - Also, tombstones shall be removed.
 
 - **Tombstones** is a concept in Cassandra whereby the Delete operation does not delete the data - column or row etc.Instead, a marker called **Tombstone** in its place. This tombstone will have a lifetime after which the data gets deleted. This settings is called **Gabage Collection Grace Seconds**. By default it is 864,000 - 10 days. The purpose of this delay is to give a node that is unavailable, some time to recover.
