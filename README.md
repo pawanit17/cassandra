@@ -24,6 +24,8 @@
 
 # Questions
 - Read more on columnar storage
+- Read on Compaction
+- cassandra.yaml and logback.xml
 - What are tokens
 - Are all the records with same partition key stores adjacent in disk space?.
 - How to CRUD using API
