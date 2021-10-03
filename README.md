@@ -167,6 +167,7 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - **SSTable** is the disk file.
   - Immutable
   - Has a Bloom Filter associated with it that tells whether parition key is present or not with probability.
+- TODO: https://stackoverflow.com/questions/34592948/what-is-the-purpose-of-cassandras-commit-log
 - Row Cache and Key cache help in performance.
 - Partition Index File and Partition Index Summary File.
 - ![image](https://user-images.githubusercontent.com/42272776/135134760-14c991a2-a4eb-4d36-b9bc-846f8ff01193.png)
