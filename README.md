@@ -163,6 +163,8 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
   - In **NetworkTopologyStrategy** we can specify a different RF for each data center. Within a DC, it allocates replicas to different racks in order to maximize availability.
   - Replication strategy is set independently for each keyspace and is a mandatory option in order to create a keyspace.
 - **Consistency Levels** determine how many nodes needs to agree on a READ or a WRITE.
+  - If CL is set to more nodes, it means that more nodes have to agree for that READ/WRITE. So if few of them go down, the system cannot concur and becomes unavailable. System configured towards Consisteny.
+  - If CL is set to less nodes, it means that lesser nodes have to agree and if few of them go down, the system can still function and is still available. System configured towards Availability.
 - ![image](https://user-images.githubusercontent.com/42272776/135130023-ef6513a0-931a-4de4-a810-e6882b9c3e63.png)
 - **Consistency Level** is specified during READs/WRITEs per client. **Replication factor** is per Keyspace.
 - **Consistency level is based on replication factor, not on the number of nodes in the system.**
