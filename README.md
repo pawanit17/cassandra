@@ -1,5 +1,12 @@
 # cassandra
 
+# Vs RDBMS
+- Very difficult to scale as most RDBMS are designed to be installed on a single server. So vertical scaling is possible, horizontal scaling is a big task.
+- BigData scenario need parallel processing of queries and this is not possible in RDBMS world.
+- RDBMS replication is an asynchronous process, so client may get stale results.
+- As the data increases, complicates SQL joins take time.
+- Does not scale linearly.
+
 # Goal
 - :target: Get a good idea by 15th of October.
 
