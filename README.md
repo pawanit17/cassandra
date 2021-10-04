@@ -15,6 +15,7 @@
 | SprintBoot Data + Cassandra | https://www.youtube.com/watch?v=nBoHQOcwPS4 |
 | Cassandra: The definitive guide | https://github.com/sunilsoni/Cassandra-Data-Modeling/blob/master/books/Cassandra%20The%20Definitive%20Guide%20Eben%20Hewit.pdf |
 | Introduction to Apache Cassandra | https://www.youtube.com/watch?v=B_HTdrTgGNs |
+| Best practices for migrating to Apache Cassandra | https://www.datastax.com/blog/best-practices-migrating-relational-data-platform-apache-cassandratm |
 
 
 # Introduction
