@@ -199,9 +199,30 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - **Tombstones** is a concept in Cassandra whereby the Delete operation does not delete the data - column or row etc.Instead, a marker called **Tombstone** in its place. This tombstone will have a lifetime after which the data gets deleted. This settings is called **Gabage Collection Grace Seconds**. By default it is 864,000 - 10 days. The purpose of this delay is to give a node that is unavailable, some time to recover.
 - **Bloom Filters** Very fast way to test if an element is in a given set. Catch here is that they are probabilistic data structures and may give false positives, but never a false negative. Org.apache.cassandra.utils.BloomFilter class implements this data structure. When a query is performed, Bloom filter is checked first to see if the data exists. If it determines that the element does not exist, then disk is not accessed. Otherwise, disk check is done, thereby acting as a cache and reducing READ times. Bloom filters are on SSTables.
 
+# What happens during WRITE
+- The client picks a coordinator node & eventually makes it to the specific node.
+- There, the data is written to the commitLog, which is an append only data structure => fast I/O.
+- Once we achieve this durability, it merges the content onto an in-memory data structure called MemTable.
+- It can now respond back to the client that the data is written.
+- Every column that is updated/written will have a timestamp updated against it. This is used for compaction later.
+- Memtable is in-memory, so they are flushed to Disk asynchronously called SSTable.
+- Cassandra does not do updates or deletes. SSTable, CommitLog are immutable. So deletes are marked as Tombstones. Tombstones also get a timestamp.
+- Once Memtable becomes full, it flushes to Disk as an SSTable and so over the time, the SSTables increase.
+- Usually SSTables are small and so Compaction kicks in and does the update/merge to discard unnecessary SSTables.
+- Row2 written later than Row1 wins priority. **Last Write Wins**. This is where column timestamp comes into picture.
+- This optimization makes Cassandra faster. Back ups are also faster, all you need to do is to copy SSTables. There are commands to flush content from CommitLog and MemTable to SSTables and this copy can happen after that.
+![image](https://user-images.githubusercontent.com/42272776/135896332-1d01a2a4-16b4-4492-bb7e-91788220311d.png)
+![image](https://user-images.githubusercontent.com/42272776/135896947-ccb0d566-c89d-4330-86bb-025e35a7885b.png)
 
-
-
+# What happens during READ
+- Reads are similar, they are coordinated in the same way.
+- But after reaching a server, it may have to look at multiple SSTables for the data.
+- This is because although compaction is a background process, there could be some rows which are scattered across multiple SSTables and are not processed yet by Compaction.
+- So it loads them into memory, merges them using the timestamp and also if there is any relevant data in MemTables, that gets merged in as well and the client is notified.
+- Cassandra can issue Read Repair Change if not all replicas dont agree on data. Here **Last Write Wins**. There is a configuration for this, with a default setting of 10%.
+  - If 10% of nodes do not agree, it does a Read Repair Change. 
+- If the usecase is READ heavy, the type of disk has impact - SSD or Spinning disk. For WRITE, this is not the case as we just append to Commit Log.
+- ![image](https://user-images.githubusercontent.com/42272776/135897596-73f770e2-1187-4ec8-b1ea-c5bc5f809e75.png)
 
 # How is data stored
 | Element      | Description |
