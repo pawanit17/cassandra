@@ -25,8 +25,6 @@
 | Best practices for migrating to Apache Cassandra | https://www.datastax.com/blog/best-practices-migrating-relational-data-platform-apache-cassandratm |
 | Datastax Academy: Introduction to Apache Cassandra | https://academy.datastax.com/#/online-courses/0da20519-364d-47a9-9916-b59c02175393 |
 
-
-
 # Introduction
 - Developed at Facebook and is a Columnar Database.
 - Has its own version of SQL called CQL and is a NOSL database.
@@ -92,9 +90,12 @@
 - Data managed on a single system
 - Ideal for catalog management system and not for order management system.
 
+# Tryouts
+- Inventory List
+- Comments system
+
 # Usecases
 - ![image](https://user-images.githubusercontent.com/42272776/134814315-00981f59-9f3a-43b3-ad1a-13388824f71c.png)
-
 
 # Architecture
 - Cassandra is a distributed database. It means that there are several nodes over which the data is split using some criteria.
@@ -109,9 +110,6 @@
 
 
 - D:\Development\apache-cassandra-3.11.10\conf\logback.xml
-
-
-
 
 - 1000s of operations per core.
 - Each Node has a full installation of Cassandra.
