@@ -4,7 +4,7 @@
 - Very difficult to scale as most RDBMS are designed to be installed on a single server. So vertical scaling is possible, horizontal scaling is a big task.
 - BigData scenario need parallel processing of queries and this is not possible in RDBMS world.
 - RDBMS replication is an asynchronous process, so client may get stale results.
-- As the data increases, complicates SQL joins take time.
+- As the data increases, complicated SQL joins take time.
 - Does not scale linearly.
 
 # Goal
@@ -29,6 +29,8 @@
 - Developed at Facebook and is a Columnar Database.
 - Has its own version of SQL called CQL and is a NOSL database.
 - Apache Cassandra is an open source, distributed NoSQL database that began internally at Facebook and was released as an open-source project in July 2008. Cassandra delivers continuous availability (zero downtime), high performance, and linear scalability that modern applications require, while also offering operational simplicity and effortless replication across data centers and geographies. Cassandra can handle petabytes of information and thousands of concurrent operations per second, enabling organizations to manage large amounts of data across hybrid cloud and multi cloud environments.
+- Apache Cassandra was developed by Avinash Lakshman and Prashant Malik when both were working as engineers at Facebook. The database was designed to power Facebook’s inbox search feature, making it easy for users to quickly find the conversations and other content they were looking for. The architecture combined the distribution model proposed in Amazon’s Dynamo paper to allow horizontal scaling across multiple nodes with the log-structured storage engine described in Google’s BigTable paper. The result was a highly scalable database that could address the most data-rich and performance-intensive use cases.
+- https://www.datastax.com/cassandra
 
 # Questions
 - Read more on columnar storage
@@ -59,23 +61,18 @@
 - How are different databases placed in terms of speed, availability and scalability & replication?.
   - https://www.datastax.com/nosql
 - What all can you use in SQL where clause.
- 
-# Trivia
-- Apache Cassandra was developed by Avinash Lakshman and Prashant Malik when both were working as engineers at Facebook. The database was designed to power Facebook’s inbox search feature, making it easy for users to quickly find the conversations and other content they were looking for. The architecture combined the distribution model proposed in Amazon’s Dynamo paper to allow horizontal scaling across multiple nodes with the log-structured storage engine described in Google’s BigTable paper. The result was a highly scalable database that could address the most data-rich and performance-intensive use cases.
-- https://www.datastax.com/cassandra
 
 # What does Cassandra offer
-:question: How each of the below are achieved?.
 - High Availability
   - Peer to peer architecture with no single point of failure ( masterless architecture )
 - Scalability ( Linear scale )
-![image](https://user-images.githubusercontent.com/42272776/134966576-1fb82e77-79fb-4f02-9f43-7e0565bb0406.png)
+  - ![image](https://user-images.githubusercontent.com/42272776/134966576-1fb82e77-79fb-4f02-9f43-7e0565bb0406.png)
 - Zero-downtime
 - High performance
+  - Very fast WRITES ( micro to milli seconds ) and READS ( milli seconds ) / Single digit millisecond response times at any scale.
 - Fault tolerant
   - Via Replication and Tunable consistency
 - Column oriented database
-- Very fast WRITES ( micro to milli seconds ) and READS ( milli seconds ) / Single digit millisecond response times at any scale.
 - Vendor Agnostic
 
 # When to use Cassandra
