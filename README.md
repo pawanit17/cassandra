@@ -3,7 +3,7 @@
 # Vs RDBMS
 - Very difficult to scale as most RDBMS are designed to be installed on a single server. So vertical scaling is possible, horizontal scaling is a big task.
 - BigData scenario need parallel processing of queries and this is not possible in RDBMS world.
-- RDBMS replication is an asynchronous process, so client may get stale results.
+- RDBMS replication is an asynchronous process, so client may get stale results. Challenge in serving users worldwide.
 - As the data increases, complicated SQL joins take time.
 - Does not scale linearly.
 
@@ -24,6 +24,7 @@
 | Introduction to Apache Cassandra | https://www.youtube.com/watch?v=B_HTdrTgGNs |
 | Best practices for migrating to Apache Cassandra | https://www.datastax.com/blog/best-practices-migrating-relational-data-platform-apache-cassandratm |
 | Datastax Academy: Introduction to Apache Cassandra | https://academy.datastax.com/#/online-courses/0da20519-364d-47a9-9916-b59c02175393 |
+| Datastax Youtube: DS220 | https://www.youtube.com/watch?v=mhHM3K-gjeA&list=PL2g2h-wyI4SqIigskyJNAeL2vSTJZU_Qp |
 
 # Introduction
 - Developed at Facebook and is a Columnar Database.
@@ -90,6 +91,7 @@
 # Tryouts
 - Inventory List
 - Comments system
+  - ![image](https://user-images.githubusercontent.com/42272776/136436808-c437184a-1b0e-4f2a-b8c0-01bcd422c175.png)
 
 # Usecases
 - ![image](https://user-images.githubusercontent.com/42272776/134814315-00981f59-9f3a-43b3-ad1a-13388824f71c.png)
@@ -224,7 +226,7 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 # How is data stored
 | Element      | Description |
 | ----------- | ----------- |
-| Keyspace      | Similar to schema in RDBMS, keeps group of tables together       |
+| Keyspace      | Similar to schema in RDBMS, keeps group of tables together. RF is needed for Keyspace |
 | Column Families | Are tables in RDBMS |
 | Partitions   | Partitioning        |
 | Partition Key   | This field will be how paritioning is done |
@@ -260,6 +262,13 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
     PRIMARY KEY ((city), last_name, first_name, email));
 
 # Data Modelling
+- In a traditional RDBMS, the relationships between entities are established first and at the end of the design queries access patterns will probably be considered. Entities and their constraint, relationships are more important.
+- ![image](https://user-images.githubusercontent.com/42272776/136435472-b0729132-8323-47c9-ae0e-f2982b8d41dd.png)
+- ![image](https://user-images.githubusercontent.com/42272776/136436184-e4918a5d-606f-4c4b-95cc-953df2ab5c17.png)
+- In Cassandra, along with the relationships, the usecase is also to be considered first. Queries are driving factor in Cassandra data model design.
+- ![image](https://user-images.githubusercontent.com/42272776/136435795-029fddc3-8d35-437c-bc1b-51de2b00af35.png)
+
+
 - ![image](https://user-images.githubusercontent.com/42272776/134805568-944b61f0-7648-46e2-b85f-ac5451bc6184.png)
 - ![image](https://user-images.githubusercontent.com/42272776/134805602-6f364123-9992-47f2-a014-e2a68b763e84.png)
 - Convention in Cassandra is to use _x_by_y_.
