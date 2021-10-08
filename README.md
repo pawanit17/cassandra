@@ -298,6 +298,9 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
     - Login
       - ![image](https://user-images.githubusercontent.com/42272776/136603757-e68b6c0e-5026-498e-8489-8f721d6b74b1.png)
 
+  - Migration: If you want to change the primary key, typically you would create a new table, do some migration (WRITE) via python scripts from old table to new table and finally change the API and redirect READs to new table, decomission old table.
+  - How to model usecases where you remove a video that is not watched in last 30 days - TTL update on WRITE on that row or have a Last Accessed Column & have a reaper process remove the data.
+
 - Udemy
 - Query first design
 - No Joins
