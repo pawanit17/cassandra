@@ -1,14 +1,48 @@
 # cassandra
 
-# Vs RDBMS
-- Very difficult to scale as most RDBMS are designed to be installed on a single server. So vertical scaling is possible, horizontal scaling is a big task.
-- BigData scenario need parallel processing of queries and this is not possible in RDBMS world.
-- RDBMS replication is an asynchronous process, so client may get stale results. Challenge in serving users worldwide.
-- As the data increases, complicated SQL joins take time.
-- Does not scale linearly.
-
 # Goal
 - :target: Get a good idea by 15th of October.
+
+# Why - what problem does Cassandra solve?
+- RDBMS are written when memory was costly. Hence Normal Forms are built around reducing duplication.
+- This means that application metadata will be divided into tables that are then joined to yield the needed results.
+- Joins become expensive as the data grows exponentially.
+- RDBMS are more oriented towards deployment onto a single server. They do support partitioning & with indexing they may offer some performance respite.
+- But with distributed applications also come a need for replication/fault tolerance, which RDBMS are not capable of doing. The replication schemes offered are actually asynchronous in nature. Serving users world wide becomes a challenge.
+  and would result in returning stale results. This means it is not longer A'C'ID compliant.
+- This is where NoSQL databases come into picture. In this case, Cassandra.
+- RDBMs do not scale linearly, Cassandra does.
+
+# What is Cassandra
+- Apache Cassandra is an open source, distributed NoSQL database that began internally at Facebook and was released as an open-source project in July 2008. Cassandra delivers continuous availability (zero downtime), high performance, and linear scalability that modern applications require, while also offering operational simplicity and effortless replication across data centers and geographies. Cassandra can handle petabytes of information and thousands of concurrent operations per second, enabling organizations to manage large amounts of data across hybrid cloud and multi cloud environments.
+- Inspired from Amazon DynamoDB and Google's BigTable.
+
+# What does Cassandra offer?
+- High Availability
+  - Peer to peer architecture with no single point of failure ( masterless architecture )
+- Scalability ( Linear scale )
+  - ![image](https://user-images.githubusercontent.com/42272776/134966576-1fb82e77-79fb-4f02-9f43-7e0565bb0406.png)
+- Zero-downtime
+- High performance
+  - Very fast WRITES ( micro to milli seconds ) and READS ( milli seconds ) / Single digit millisecond response times at any scale.
+  - Writes are very fast because it just appends information to the commitLog & is persisted to SSTable asynchronously.
+  - Reads are faster because the partition key is used in identifying which data has the information stored.
+- Fault tolerant
+  - Via Replication and Tunable consistency
+- Infra agnostic ( Cloud, OnPremise, Hybrid )
+- Global Distribution of content ( Rings )
+
+# When to use Cassandra
+- Applications where data is heavy - petabytes
+- When data is columnar - different fields for different products
+
+# When not to use Cassandra
+- Cassandra provides tunable consistency.
+  - Configuration parameter that clients must specify on every operation and that allows you to decide how many replicas in the cluster must acknowledge a write operation or respond to a read operation in order to be considered successful.
+  - :question: Try this!.
+- When data is to be instantly read
+- Data managed on a single system
+- Ideal for catalog management system and not for order management system.
 
 # Resources
 | Course      | Description |
@@ -25,13 +59,6 @@
 | Best practices for migrating to Apache Cassandra | https://www.datastax.com/blog/best-practices-migrating-relational-data-platform-apache-cassandratm |
 | Datastax Academy: Introduction to Apache Cassandra | https://academy.datastax.com/#/online-courses/0da20519-364d-47a9-9916-b59c02175393 |
 | Datastax Youtube: DS220 | https://www.youtube.com/watch?v=mhHM3K-gjeA&list=PL2g2h-wyI4SqIigskyJNAeL2vSTJZU_Qp |
-
-# Introduction
-- Developed at Facebook and is a Columnar Database.
-- Has its own version of SQL called CQL and is a NOSL database.
-- Apache Cassandra is an open source, distributed NoSQL database that began internally at Facebook and was released as an open-source project in July 2008. Cassandra delivers continuous availability (zero downtime), high performance, and linear scalability that modern applications require, while also offering operational simplicity and effortless replication across data centers and geographies. Cassandra can handle petabytes of information and thousands of concurrent operations per second, enabling organizations to manage large amounts of data across hybrid cloud and multi cloud environments.
-- Apache Cassandra was developed by Avinash Lakshman and Prashant Malik when both were working as engineers at Facebook. The database was designed to power Facebook’s inbox search feature, making it easy for users to quickly find the conversations and other content they were looking for. The architecture combined the distribution model proposed in Amazon’s Dynamo paper to allow horizontal scaling across multiple nodes with the log-structured storage engine described in Google’s BigTable paper. The result was a highly scalable database that could address the most data-rich and performance-intensive use cases.
-- https://www.datastax.com/cassandra
 
 # Questions
 - Read more on columnar storage
@@ -63,30 +90,7 @@
   - https://www.datastax.com/nosql
 - What all can you use in SQL where clause.
 
-# What does Cassandra offer
-- High Availability
-  - Peer to peer architecture with no single point of failure ( masterless architecture )
-- Scalability ( Linear scale )
-  - ![image](https://user-images.githubusercontent.com/42272776/134966576-1fb82e77-79fb-4f02-9f43-7e0565bb0406.png)
-- Zero-downtime
-- High performance
-  - Very fast WRITES ( micro to milli seconds ) and READS ( milli seconds ) / Single digit millisecond response times at any scale.
-- Fault tolerant
-  - Via Replication and Tunable consistency
-- Column oriented database
-- Vendor Agnostic
 
-# When to use Cassandra
-- Applications where data is heavy - petabytes
-- When data is columnar - different fields for different products
-
-# When not to use Cassandra
-- Cassandra provides tunable consistency.
-  - Configuration parameter that clients must specify on every operation and that allows you to decide how many replicas in the cluster must acknowledge a write operation or respond to a read operation in order to be considered successful.
-  - :question: Try this!.
-- When data is to be instantly read
-- Data managed on a single system
-- Ideal for catalog management system and not for order management system.
 
 # Tryouts
 - Inventory List
