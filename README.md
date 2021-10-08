@@ -1,4 +1,5 @@
 # cassandra
+- Note: Most screenshots are from DataStax YouTube videos.
 
 # Goal
 - :target: Get a good idea by 15th of October.
@@ -61,6 +62,7 @@
 | Best practices for migrating to Apache Cassandra | https://www.datastax.com/blog/best-practices-migrating-relational-data-platform-apache-cassandratm |
 | Datastax Academy: Introduction to Apache Cassandra | https://academy.datastax.com/#/online-courses/0da20519-364d-47a9-9916-b59c02175393 |
 | Datastax Youtube: DS220 | https://www.youtube.com/watch?v=mhHM3K-gjeA&list=PL2g2h-wyI4SqIigskyJNAeL2vSTJZU_Qp |
+| Datastax Modeilng | https://www.youtube.com/watch?v=4D39wJu5Too |
 
 # Questions
 - Read more on columnar storage
@@ -268,12 +270,11 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
     PRIMARY KEY ((city), last_name, first_name, email));
 
 # Data Modelling
-- In a traditional RDBMS, the relationships between entities are established first and at the end of the design queries access patterns will probably be considered. Entities and their constraint, relationships are more important.
+- In a traditional RDBMS, the relationships between entities are established first and at the end of the design, queries access patterns will probably be considered. Entities and their constraints, relationships have more importance during design phase.
 - ![image](https://user-images.githubusercontent.com/42272776/136435472-b0729132-8323-47c9-ae0e-f2982b8d41dd.png)
 - ![image](https://user-images.githubusercontent.com/42272776/136436184-e4918a5d-606f-4c4b-95cc-953df2ab5c17.png)
-- In Cassandra, along with the relationships, the usecase is also to be considered first. Queries are driving factor in Cassandra data model design.
+- In Cassandra, the usecase is also to be considered first. **Queries are driving factor in Cassandra data model design.**
 - ![image](https://user-images.githubusercontent.com/42272776/136435795-029fddc3-8d35-437c-bc1b-51de2b00af35.png)
-
 
 - ![image](https://user-images.githubusercontent.com/42272776/134805568-944b61f0-7648-46e2-b85f-ac5451bc6184.png)
 - ![image](https://user-images.githubusercontent.com/42272776/134805602-6f364123-9992-47f2-a014-e2a68b763e84.png)
@@ -284,6 +285,18 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - ![image](https://user-images.githubusercontent.com/42272776/134805719-37f06c58-820b-47d9-bf90-bed431362392.png)
 - The advantage is if we retrieve it, not only we get the relevant partitioned data, but also the ordering is intact.
 - **One query per one table**.
+
+- Deep Dive
+  - We use Cassandra to build an application called KillrVideos. We first start off by identifying all possible application flows.
+  - ![image](https://user-images.githubusercontent.com/42272776/136603137-5d177cad-d026-4cb8-ad38-46e688f3478e.png)
+  - Users Flow
+  - ![image](https://user-images.githubusercontent.com/42272776/136602531-7a11971b-871f-49a3-a0d0-c3de421bcf79.png)
+    - Registration
+      -  ![image](https://user-images.githubusercontent.com/42272776/136603802-46c3b12f-198c-4ec7-8fa4-bef7045b6629.png)
+      -  During Registration, the application writes a row onto two tables - user_credentials and users.
+      -  This is denormalization.
+    - Login
+      - ![image](https://user-images.githubusercontent.com/42272776/136603757-e68b6c0e-5026-498e-8489-8f721d6b74b1.png)
 
 - Udemy
 - Query first design
