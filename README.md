@@ -12,6 +12,8 @@
   and would result in returning stale results. This means it is not longer A'C'ID compliant.
 - This is where NoSQL databases come into picture. In this case, Cassandra.
 - RDBMs do not scale linearly, Cassandra does.
+- Another crucial difference is that with Cassandra, your table is organized around the data access pattern i.e., usecase. With RDBMS you design db and then think about access patterns and build joins.
+  - Ex: comments_by_video and comments_by_user would be two different tables in Cassandra, but in RDBMS, it would be managed by few database tables using joins.
 
 # What is Cassandra
 - Apache Cassandra is an open source, distributed NoSQL database that began internally at Facebook and was released as an open-source project in July 2008. Cassandra delivers continuous availability (zero downtime), high performance, and linear scalability that modern applications require, while also offering operational simplicity and effortless replication across data centers and geographies. Cassandra can handle petabytes of information and thousands of concurrent operations per second, enabling organizations to manage large amounts of data across hybrid cloud and multi cloud environments.
