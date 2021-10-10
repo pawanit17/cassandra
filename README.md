@@ -286,7 +286,8 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - The advantage is if we retrieve it, not only we get the relevant partitioned data, but also the ordering is intact.
 - **One query per one table**.
 
-- Deep Dive
+- ## Deep Dive
+  - Data Modelling example for a simple usecase. 
   - We use Cassandra to build an application called KillrVideos. We first start off by identifying all possible application flows.
   - ![image](https://user-images.githubusercontent.com/42272776/136603137-5d177cad-d026-4cb8-ad38-46e688f3478e.png)
   - Users Flow
@@ -297,8 +298,14 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
       -  This is denormalization.
     - Login
       - ![image](https://user-images.githubusercontent.com/42272776/136603757-e68b6c0e-5026-498e-8489-8f721d6b74b1.png)
+  - **Planning future queries and use cases**
+    - Adding features is always ok - adding columns, addming columns.
+    - But if you end up changing the primary key, it is a non trivial process. If you want to change the primary key, typically you would create a new table, do some migration (WRITE) via python scripts from old table to new table and finally change the API and redirect READs to new table, decomission old table.
+  - Videos Flow
+  - ![image](https://user-images.githubusercontent.com/42272776/136700494-0d75af2d-fc58-47d4-9f39-ec140c056a33.png)
+  - Find Video by ID
+    -  
 
-  - Migration: If you want to change the primary key, typically you would create a new table, do some migration (WRITE) via python scripts from old table to new table and finally change the API and redirect READs to new table, decomission old table.
   - How to model usecases where you remove a video that is not watched in last 30 days - TTL update on WRITE on that row or have a Last Accessed Column & have a reaper process remove the data.
 
 - Udemy
