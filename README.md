@@ -96,10 +96,12 @@
 
 
 
-# Do it
+# Experiments
 - Build a simple application like KillrVideo and get acquanted with the Data Model building part.
 - Few examples are Inventory List & Comments system
   - ![image](https://user-images.githubusercontent.com/42272776/136436808-c437184a-1b0e-4f2a-b8c0-01bcd422c175.png)
+- Build/Understand the application listed in the Cassandra reference book
+  - https://www.oreilly.com/content/cassandra-data-modeling/
 - Experiment with various data types in Cassandra and understand when you would use them.
 - Deploy a small application with Cassandra containerized with Docker.
 - Use REST API to CRUD Data in Cassandra instance.
@@ -119,7 +121,6 @@
   - :question: Is this by default?.
 
 - Cassandra is column-oriented.
-
 
 - D:\Development\apache-cassandra-3.11.10\conf\logback.xml
 
