@@ -298,15 +298,38 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
       -  This is denormalization.
     - Login
       - ![image](https://user-images.githubusercontent.com/42272776/136603757-e68b6c0e-5026-498e-8489-8f721d6b74b1.png)
-  - **Planning future queries and use cases**
+  - **Q: Planning future queries and use cases**
     - Adding features is always ok - adding columns, addming columns.
     - But if you end up changing the primary key, it is a non trivial process. If you want to change the primary key, typically you would create a new table, do some migration (WRITE) via python scripts from old table to new table and finally change the API and redirect READs to new table, decomission old table.
   - Videos Flow
   - ![image](https://user-images.githubusercontent.com/42272776/136700494-0d75af2d-fc58-47d4-9f39-ec140c056a33.png)
   - Find Video by ID
-    -  
+  - **Q: BLOB Storage**
+    -  Usually videos are stored in S3 buckets with meta data references in Cassandra
+  - **Q: How to tag videos**
+    - Use collections to include Dynamic data. This skips having to set a join condition. Refer to hastags in the screenshot above. 
+  - **Q: Avoiding joins**
+    - ![image](https://user-images.githubusercontent.com/42272776/136702146-06a8546d-363d-48a2-9e6e-b470f440a17e.png)
+    - ![image](https://user-images.githubusercontent.com/42272776/136702170-b5bec9e0-f2a6-41b9-b249-38e57d9b8912.png)
+  - **Q: Counters**
+    - For Like, View count.
+    - ![image](https://user-images.githubusercontent.com/42272776/136702253-58761ee4-9cb8-480d-8273-1c2e0f798a11.png)
+    - Counters can only be included in tables where only columns are of type counters and primary key.
+    - Also try using OOTB stored procedures / utility functions like avg, sum, max etc.
+  - **Q: Time series Usecases**
+    -  These are usally modelled for IOT.
+    -  ![image](https://user-images.githubusercontent.com/42272776/136702404-219e8d45-f601-4a60-9281-01eb827fdfc3.png)
+    -  If there are too many videos per day, break it further.
+  -  **Q: How to know if your design scales**
+    - Few hundreds of MB per partition.
+    - Test the data model for performance.
+    - Design may be wrong, usecase may be updated, hardware choice may be poor.   
+  - **Q: Foreign keys?**
+    - Not possible in NoSQL databases.
+  - **Q: How to model usecases where you remove a video that is not watched in last 30 days** 
+    - Update TTL on the table each time the video is accessed ( only one field update ) or have a Last Accessed Column & have a reaper process remove the data.
 
-  - How to model usecases where you remove a video that is not watched in last 30 days - TTL update on WRITE on that row or have a Last Accessed Column & have a reaper process remove the data.
+
 
 - Udemy
 - Query first design
