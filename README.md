@@ -205,6 +205,9 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 
 - **Tombstones** is a concept in Cassandra whereby the Delete operation does not delete the data - column or row etc.Instead, a marker called **Tombstone** in its place. This tombstone will have a lifetime after which the data gets deleted. This settings is called **Gabage Collection Grace Seconds**. By default it is 864,000 - 10 days. The purpose of this delay is to give a node that is unavailable, some time to recover.
 - **Bloom Filters** Very fast way to test if an element is in a given set. Catch here is that they are probabilistic data structures and may give false positives, but never a false negative. Org.apache.cassandra.utils.BloomFilter class implements this data structure. When a query is performed, Bloom filter is checked first to see if the data exists. If it determines that the element does not exist, then disk is not accessed. Otherwise, disk check is done, thereby acting as a cache and reducing READ times. Bloom filters are on SSTables.
+- **Secondary Indexes**
+- ![image](https://user-images.githubusercontent.com/42272776/136705465-b6408510-21ef-41a6-8bb7-d2a04361716a.png)
+- ![image](https://user-images.githubusercontent.com/42272776/136705487-ee00b0f9-088f-4787-8dea-8e563f0c428f.png)
 
 # What happens during WRITE
 - The client picks a coordinator node & eventually makes it to the specific node.
