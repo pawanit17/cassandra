@@ -96,10 +96,15 @@
 
 
 
-# Tryouts
-- Inventory List
-- Comments system
+# Do it
+- Build a simple application like KillrVideo and get acquanted with the Data Model building part.
+- Few examples are Inventory List & Comments system
   - ![image](https://user-images.githubusercontent.com/42272776/136436808-c437184a-1b0e-4f2a-b8c0-01bcd422c175.png)
+- Experiment with various data types in Cassandra and understand when you would use them.
+- Deploy a small application with Cassandra containerized with Docker.
+- Use REST API to CRUD Data in Cassandra instance.
+  - How is the information of the Cassandra node made aware to the client/routing process.
+- Integrate with SpringBoot.
 
 # Usecases
 - ![image](https://user-images.githubusercontent.com/42272776/134814315-00981f59-9f3a-43b3-ad1a-13388824f71c.png)
