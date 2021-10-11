@@ -338,9 +338,7 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
   - **Q: How to model usecases where you remove a video that is not watched in last 30 days** 
     - Update TTL on the table each time the video is accessed ( only one field update ) or have a Last Accessed Column & have a reaper process remove the data.
 
-
-
-- Udemy
+ - Udemy
 - Query first design
 - No Joins
 - Uniform distribution across clusters ( 10MB to 200MB )
@@ -355,17 +353,36 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - Selection without Primary Key ( invokes full table scan )
 - SimpleStrategy in Production is not recommended.
 
-# CRUD
-- Create
-  - CREATE TABLE IF NOT EXISTS comments_by_user (
+# Basic Data Types
+| Element      | Description |
+| ----------- | ----------- |
+| Text      | UTF8 encoded string |
+| Int  | Signed 32bit integer |
+| UUID | Uses Random Numbers ( Function - uuid() ) |
+| TIMEUUID | Sortable, Uses time information ( Function - now() ) |
+| TIMESTAMP | Stores date and time |
+
+# Commands
+- List Keyspaces
+  - ```select * from system_schema.keyspaces;```
+
+- Use a Keyspace
+  - ```use killrvideo```
+
+- Get all tables from a Keyspace  
+  - ```describe tables;```
+
+- Create Table
+  - ```CREATE TABLE IF NOT EXISTS comments_by_user (
     userid uuid,
     commentid timeuuid,
     videoid uuid,
     comment text,
     PRIMARY KEY ((userid), commentid)
-    ) WITH CLUSTERING ORDER BY (commentid DESC);
-    
-  - INSERT INTO comments_by_user (
+    ) WITH CLUSTERING ORDER BY (commentid DESC);```
+
+- Insert Data
+  - ```INSERT INTO comments_by_user (
     userid, //uuid: unique id for a user
     commentid, //timeuuid: unique uuid + timestamp
     videoid, //uuid: id for a given video
@@ -376,21 +393,40 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
       NOW(), 
       12345678-1234-1111-1111-111111111111, 
       'I so grew up in the 80''s'
-    );
+    );```
  
-- Read
-  - SELECT * FROM comments_by_user WHERE userid = 11111111-1111-1111-1111-111111111111;
+- Read Data
+  - ```SELECT * FROM comments_by_user WHERE userid = 11111111-1111-1111-1111-111111111111;```
   - **Note that a straight select * without specifying partion key on a realistic production cluster would cause a full scan and is highly discouraged.**
+  - Where clause, when specified on a column which is not part of primary key would fail if there are no secondary indices. This is also a costly operation. 
 
-- Update
-  - UPDATE comments_by_video 
+- Truncate
+  - ```Truncate table1;```
+  - Removes all the rows in the table, leaving the schema intact.
+
+- Altering table
+  - ```Alter table table1 ADD another_column;```
+  - ```Alter table table1 DROP another_column;```
+  - Used to add, remove columns from a table, or to change the data type of a column, rename columns and change table properties.
+  - Cannot alter primary keys.
+
+- Update Rows in Table
+  - ```UPDATE comments_by_video 
     SET comment = 'OMG that guy Patrick is on fleek' 
-    WHERE videoid = 12345678-1234-1111-1111-111111111111 AND commentid = 494a3f00-e966-11ea-84bf-83e48ffdc8ac;
+    WHERE videoid = 12345678-1234-1111-1111-111111111111 AND commentid = 494a3f00-e966-11ea-84bf-83e48ffdc8ac;```
 
-- Delete
-  - DELETE FROM comments_by_video 
-    WHERE videoid = 12345678-1234-1111-1111-111111111111 AND commentid = 494a3f00-e966-11ea-84bf-83e48ffdc8ac;
+- Delete Rows in Table
+  - ```DELETE FROM comments_by_video 
+    WHERE videoid = 12345678-1234-1111-1111-111111111111 AND commentid = 494a3f00-e966-11ea-84bf-83e48ffdc8ac;```
   - In Cassandra, Delete actually uses Insert as it creates a Delete Marker called Tombstone.
+
+- Running commands from an file
+  - ```SOURCE './myscript.cql'```; 
+
+- Copy from/to files
+  - Import/Export from CSV
+    - ```COPY table (column1, column2, column3) FROM 'table1data.csv'```
+    - ```COPY table (column1, column2, column3) FROM 'table1data.csv' WITH HEADER=true;```
 
 # AWC Cloud
 - AWC offers Cassandra as a Service called **Amazon Keyspaces**.
