@@ -63,6 +63,8 @@
 | Datastax Academy: Introduction to Apache Cassandra | https://academy.datastax.com/#/online-courses/0da20519-364d-47a9-9916-b59c02175393 |
 | :star:Datastax Youtube: DS220* | https://www.youtube.com/watch?v=mhHM3K-gjeA&list=PL2g2h-wyI4SqIigskyJNAeL2vSTJZU_Qp |
 | :star:Datastax Modelling | https://www.youtube.com/watch?v=4D39wJu5Too |
+| :star:Datstax CQL | https://www.datastax.com/dev/scenario/try-it-out-cassandra-query-language-cql |
+| :star:Datastax Interactive Modeling Course | https://www.datastax.com/node/3272 |
 
 # Questions
 - Read more on columnar storage
