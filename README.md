@@ -363,6 +363,9 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 | TIMESTAMP | Stores date and time |
 
 # Commands
+- Create a Keyspace
+  -  ```Create Keyspace DEMO with replication = {'class':'SimpleStrategy', 'replication_factor':1};```
+
 - List Keyspaces
   - ```select * from system_schema.keyspaces;```
 
@@ -427,6 +430,9 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
   - Import/Export from CSV
     - ```COPY table (column1, column2, column3) FROM 'table1data.csv'```
     - ```COPY table (column1, column2, column3) FROM 'table1data.csv' WITH HEADER=true;```
+
+- Get timestamp of columns
+  - ```Select firstname, writetime(firstname), email, writetime(email) from users;```
 
 # AWC Cloud
 - AWC offers Cassandra as a Service called **Amazon Keyspaces**.
