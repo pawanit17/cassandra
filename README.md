@@ -61,8 +61,8 @@
 | Introduction to Apache Cassandra | https://www.youtube.com/watch?v=B_HTdrTgGNs |
 | Best practices for migrating to Apache Cassandra | https://www.datastax.com/blog/best-practices-migrating-relational-data-platform-apache-cassandratm |
 | Datastax Academy: Introduction to Apache Cassandra | https://academy.datastax.com/#/online-courses/0da20519-364d-47a9-9916-b59c02175393 |
-| Datastax Youtube: DS220* | https://www.youtube.com/watch?v=mhHM3K-gjeA&list=PL2g2h-wyI4SqIigskyJNAeL2vSTJZU_Qp |
-| Datastax Modeilng* | https://www.youtube.com/watch?v=4D39wJu5Too |
+| :star:Datastax Youtube: DS220* | https://www.youtube.com/watch?v=mhHM3K-gjeA&list=PL2g2h-wyI4SqIigskyJNAeL2vSTJZU_Qp |
+| :star:Datastax Modelling | https://www.youtube.com/watch?v=4D39wJu5Too |
 
 # Questions
 - Read more on columnar storage
