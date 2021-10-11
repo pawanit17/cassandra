@@ -433,6 +433,7 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 
 - Get timestamp of columns
   - ```Select firstname, writetime(firstname), email, writetime(email) from users;```
+  - This will not work for primary key column.
 
 # AWC Cloud
 - AWC offers Cassandra as a Service called **Amazon Keyspaces**.
