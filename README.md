@@ -441,6 +441,27 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - AWC offers Cassandra as a Service called **Amazon Keyspaces**.
   - Serverless, Automatica Scaling, Unlimited Storage, Milli Second Performance, Replication, Encryption at REST.
 
+# SpringBoot + Cassandra
+
+## Loading Project into IDE
+- Using the Spring Initializr, create a Spring project & add the following dependencies
+  -  Spring Data for Apache Cassandra
+  -  Spring Boot Dev Tools
+  -  Spring Web
+  -  Lombok
+  -  Spring Boot Actuator
+- Import the project onto InteligIdea.
+- By default, when you run this project it will fail as it starts to look for Cassandra on localhost at port 9042.
+- Preventing auto configuration of Cassandra - https://stackoverflow.com/questions/43480147/how-to-block-cassandra-from-trying-to-connect-automatically
+- ```@SpringBootApplication(exclude = {CassandraDataAutoConfiguration.class, CassandraAutoConfiguration.class})```
+
+## Writing classes to connect to Cassandra
+- Create a REST Controller class and map it to ```/``` path.
+- ![image](https://user-images.githubusercontent.com/42272776/136999557-31471256-1a90-4e41-9bb6-b3f0c339a5e1.png)
+- :octocat: The class that is marked as SpringBootApplication is to be placed at the top of the hierarchy. Check this out: https://stackoverflow.com/a/41749948/815961
+- :octocat: RESTController is used in SpringBoot to create RESTFul Webservices using SpringMVC.
+
+Halted at https://www.youtube.com/watch?v=nBoHQOcwPS4&t=52m06s
 
 
 
