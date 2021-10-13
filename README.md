@@ -46,7 +46,7 @@
 - When data is to be instantly read
 - Data managed on a single system
 - Ideal for catalog management system and not for order management system.
-
+- Avoiding usage as described in anti-pattern.
 # Resources
 | Course      | Description |
 | ----------- | ----------- |
