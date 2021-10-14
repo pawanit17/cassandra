@@ -463,7 +463,9 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 
 Halted at https://www.youtube.com/watch?v=nBoHQOcwPS4&t=52m06s
 
+# SpringBoot + ThymeLeaf + Cassandra
 Resumed at https://www.youtube.com/watch?v=LxVGFBRpEFM
 
+# SprintBoot + StarGate + GraphQL + Cassandra
 
 
