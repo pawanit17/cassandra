@@ -473,6 +473,9 @@ Resumed at https://www.youtube.com/watch?v=waLSHx-VN08
 # SprintBoot + StarGate + GraphQL + Cassandra
 
 :pushpin: Learn SpringBoot before we come here.
+- SwaggerUI
+- RESTAPI
+- SpringBoot
 
 
 
