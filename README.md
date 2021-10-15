@@ -366,22 +366,22 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 
 # Commands
 - Create a Keyspace
-  -  ```Create Keyspace DEMO with replication = {'class':'SimpleStrategy', 'replication_factor':1};```
+```Create Keyspace DEMO with replication = {'class':'SimpleStrategy', 'replication_factor':1};```
 
 - List Keyspaces
-  - ```select * from system_schema.keyspaces;```
+```select * from system_schema.keyspaces;```
 
 - Use a Keyspace
-  - ```use killrvideo```
+```use killrvideo```
 
 - Get all tables from a Keyspace  
-  - ```describe tables;```
+```describe tables;```
 
 - Describe a Keyspace  
-  - ```describe <keyspacename>;```
+```describe <keyspacename>;```
 
 - Create Table
-  - ```CREATE TABLE IF NOT EXISTS comments_by_user (
+```CREATE TABLE IF NOT EXISTS comments_by_user (
     userid uuid,
     commentid timeuuid,
     videoid uuid,
@@ -390,7 +390,7 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
     ) WITH CLUSTERING ORDER BY (commentid DESC);```
 
 - Insert Data
-  - ```INSERT INTO comments_by_user (
+```INSERT INTO comments_by_user (
     userid, //uuid: unique id for a user
     commentid, //timeuuid: unique uuid + timestamp
     videoid, //uuid: id for a given video
@@ -404,32 +404,32 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
     );```
  
 - Read Data
-  - ```SELECT * FROM comments_by_user WHERE userid = 11111111-1111-1111-1111-111111111111;```
+```SELECT * FROM comments_by_user WHERE userid = 11111111-1111-1111-1111-111111111111;```
   - **Note that a straight select * without specifying partion key on a realistic production cluster would cause a full scan and is highly discouraged.**
   - Where clause, when specified on a column which is not part of primary key would fail if there are no secondary indices. This is also a costly operation. 
 
 - Truncate
-  - ```Truncate table1;```
+```Truncate table1;```
   - Removes all the rows in the table, leaving the schema intact.
 
 - Altering table
-  - ```Alter table table1 ADD another_column;```
-  - ```Alter table table1 DROP another_column;```
+```Alter table table1 ADD another_column;```
+```Alter table table1 DROP another_column;```
   - Used to add, remove columns from a table, or to change the data type of a column, rename columns and change table properties.
   - Cannot alter primary keys.
 
 - Update Rows in Table
-  - ```UPDATE comments_by_video 
+```UPDATE comments_by_video 
     SET comment = 'OMG that guy Patrick is on fleek' 
     WHERE videoid = 12345678-1234-1111-1111-111111111111 AND commentid = 494a3f00-e966-11ea-84bf-83e48ffdc8ac;```
 
 - Delete Rows in Table
-  - ```DELETE FROM comments_by_video 
+```DELETE FROM comments_by_video 
     WHERE videoid = 12345678-1234-1111-1111-111111111111 AND commentid = 494a3f00-e966-11ea-84bf-83e48ffdc8ac;```
   - In Cassandra, Delete actually uses Insert as it creates a Delete Marker called Tombstone.
 
 - Running commands from an file
-  - ```SOURCE './myscript.cql'```; 
+```SOURCE './myscript.cql'```; 
 
 - Copy from/to files
   - Import/Export from CSV
@@ -437,7 +437,7 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
     - ```COPY table (column1, column2, column3) FROM 'table1data.csv' WITH HEADER=true;```
 
 - Get timestamp of columns
-  - ```Select firstname, writetime(firstname), email, writetime(email) from users;```
+```Select firstname, writetime(firstname), email, writetime(email) from users;```
   - This will not work for primary key column.
 
 # AWC Cloud
