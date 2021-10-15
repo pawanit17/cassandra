@@ -377,6 +377,9 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 - Get all tables from a Keyspace  
   - ```describe tables;```
 
+- Describe a Keyspace  
+  - ```describe <keyspacename>;```
+
 - Create Table
   - ```CREATE TABLE IF NOT EXISTS comments_by_user (
     userid uuid,
@@ -464,8 +467,10 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 Halted at https://www.youtube.com/watch?v=nBoHQOcwPS4&t=52m06s
 
 # SpringBoot + ThymeLeaf + Cassandra
-Resumed at https://www.youtube.com/watch?v=LxVGFBRpEFM
+Resumed at https://www.youtube.com/watch?v=waLSHx-VN08
+
 
 # SprintBoot + StarGate + GraphQL + Cassandra
+
 
 
