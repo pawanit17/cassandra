@@ -365,29 +365,27 @@ in writing, the WRITE request succeeds otherwise, it fails. This is **Immediate 
 | TIMESTAMP | Stores date and time |
 
 # Commands
-## Create a Keyspace
-```Create Keyspace DEMO with replication = {'class':'SimpleStrategy', 'replication_factor':1};```
-
-## List Keyspaces
-```select * from system_schema.keyspaces;```
-
-## Use a Keyspace
-```use killrvideo```
-
-## Get all tables from a Keyspace  
-```describe tables;```
-
-## Describe a Keyspace  
-```describe <keyspacename>;```
-
-## Create Table
-```CREATE TABLE IF NOT EXISTS comments_by_user (
+| Command      | Description |
+| ----------- | ----------- |
+| Create a Keyspace      | Create Keyspace DEMO with replication = {'class':'SimpleStrategy', 'replication_factor':1}; |
+| List Keyspaces  | select * from system_schema.keyspaces; |
+| Use a Keyspace | use killrvideo |
+| Get all tables from a Keyspace | describe tables; |
+| Describe a Keyspace  | describe <keyspacename>; |
+| Create Table  | CREATE TABLE IF NOT EXISTS comments_by_user (
     userid uuid,
     commentid timeuuid,
     videoid uuid,
     comment text,
     PRIMARY KEY ((userid), commentid)
-    ) WITH CLUSTERING ORDER BY (commentid DESC);```
+    ) WITH CLUSTERING ORDER BY (commentid DESC); |
+| Describe a Keyspace  | describe <keyspacename>; |
+| Describe a Keyspace  | describe <keyspacename>; |
+| Describe a Keyspace  | describe <keyspacename>; |
+
+
+## Create Table
+``````
 
 ## Insert Data
 ```INSERT INTO comments_by_user (
