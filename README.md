@@ -474,6 +474,8 @@ Resumed at https://www.youtube.com/watch?v=waLSHx-VN08
 - SwaggerUI
 - RESTAPI
 - SpringBoot
+  
+- Read this: https://stackoverflow.com/a/24953331/815961
 
 
 
